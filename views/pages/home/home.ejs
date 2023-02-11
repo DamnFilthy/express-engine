@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- include('../../components/styles-vendor/styles-vendor'); %>
+    <%- include('../../components/styles-global/styles-global'); %>
+    <%- include('../../components/js-vendor/js-vendor'); %>
+    <%- include('../../components/js-global/js-global'); %>
+    <link rel="stylesheet" href="/public/css/pages/home/home.min.css">
+    <title> <%= title %> </title>
+</head>
+<body>
+<%- include('../../components/header/header'); %>
+<h1>
+    <%= pageTitle %>
+</h1>
+<div class="home-page-text">
+    Текст на главной странице
+    <span>red text</span>
+</div>
+<a href="/about">О нас</a>
+<%- include('../../components/sidebar/sidebar'); %>
+<%- include('../../components/footer/footer'); %>
+<script src="/public/js/pages/home/home-min.min.js"></script>
+</body>
+</html>
