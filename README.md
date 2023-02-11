@@ -19,11 +19,11 @@
 
 * Запуск сервера
 
-     > npm run dev - server
+     > npm run dev
      
  * Запуск сборщика с отслеживанием изменений файлов
  
-      > npm run gulp - сборщик 
+      > npm run gulp
 
 #### Структура страниц (views)
 
