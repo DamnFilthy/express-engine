@@ -47,22 +47,52 @@
 | name.css/sass/scss | Стили в любом формате   | Стили для конкретной страницы/Компонента  |
 | name.js | javascript код   | использующийся только на этой странице/компоненте   |
 
-#### В проекте уже реализованы компоненты которые подключают глобальные стили и js (vendor и свои)
+#### Подключаем стили и скрипты (глобальные и для конкретной страницы)
 
 ```
 <head>
-       <%- include('../../components/styles-vendor/styles-vendor'); %> // Глобальные вендор стили
-       <%- include('../../components/styles-main/styles-main'); %> // Глобальные стили приложения
-       <%- include('../../components/js-vendor/js-vendor'); %> // Глобальный js вендор
-       <%- include('../../components/js-main/js-main'); %> // Глобальный js приложения
-       <link rel="stylesheet" href="/public/css/pages/about/about.min.css"> // Необходимо подключить стили страницы из public
+    <link rel="stylesheet" href="<%= pageCssVendor %>"> // Глобальные вендор стили
+    <link rel="stylesheet" href="<%= pageCssMain %>"> // Глобальные стили приложения
+    <link rel="stylesheet" href=" <%= pageCss %> "> // Стили текущей страницы
 </head>
 <body>
-       ...
-       <script src="/public/js/pages/about/about-min.min.js"></script> // Необходимо подключить js страницы из public
+    ... 
+    <script src="<%= pageScriptVendor %>"></script> // Глобальный js вендор
+    <script src="<%= pageScriptMain %>"></script> // Глобальный js приложения
+    <script src=" <%= pageScript %> "></script> // Javascript текущей страницы
 </body>
 ```
-### При создании страницы/компонента необходимо импортировать js и css из папки public - структура полностью совпадает с src
+
+#### Как передавать стили и js в шаблоны:
+- Использовать функцию getScriptLocation `const getScriptLocation = require("../utils/getScript");` 
+- Передать на вход тип файла и название страницы `const jsName = getScriptLocation('jsType', 'home');`
+- Для глобальных стилей и скриптов передаем без имени страницы 
+- Передать в шаблон:
+``` 
+const pageScriptVendor = getScriptLocation('jsTypeVendor'),
+            pageScriptMain = getScriptLocation('jsTypeMain'),
+            pageScript = getScriptLocation('jsType', 'home'),
+            pageCssVendor = getScriptLocation('cssTypeVendor'),
+            pageCssMain = getScriptLocation('cssTypeMain'),
+            pageCss = getScriptLocation('cssType', 'home');
+
+        res.render('pages/home/home', {
+            title: 'Main Page',
+            pageTitle: 'Главная страница',
+            pageScriptVendor,
+            pageScriptMain,
+            pageScript,
+            pageCssVendor,
+            pageCssMain,
+            pageCss
+        })
+```
+- При использовании кастомных компонентов стили и скрипты для них подключаются вручную:
+```
+<link rel="stylesheet" href="/public/css/components/sidebar/sidebar.min.css">
+<script src="/public/js/components/sidebar/sidebar-min.min.js"></script>
+```
+- Пути в public идентичны по структуре в src
 
 ###### Суть: подключить данный шаблон и начать сразу делать сайт не думая про оптимизацию (при масштабировании) 
 

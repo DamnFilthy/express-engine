@@ -5,11 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <%- include('../../components/styles-vendor/styles-vendor'); %>
-    <%- include('../../components/styles-main/styles-main'); %>
-    <%- include('../../components/js-vendor/js-vendor'); %>
-    <%- include('../../components/js-main/js-main'); %>
-    <link rel="stylesheet" href="/public/css/pages/about/about.min.css">
+    <link rel="stylesheet" href="<%= pageCssVendor %>">
+    <link rel="stylesheet" href="<%= pageCssMain %>">
+    <link rel="stylesheet" href="<%= pageCss %>">
     <title>
         <%= title %>
     </title>
@@ -21,6 +19,8 @@
 </div>
 <%- include('../../components/sidebar/sidebar'); %>
 <%- include('../../components/footer/footer'); %>
-<script src="/public/js/pages/about/about-min.min.js"></script>
+<script src="<%= pageScriptVendor %>"></script>
+<script src="<%= pageScriptMain %>"></script>
+<script src="<%= pageScript %>"></script>
 </body>
 </html>
