@@ -27,4 +27,16 @@ publicRouter.get('/about', async (req, res) => {
     }
 })
 
+publicRouter.get('/analytics', async (req, res) => {
+    try {
+        res.status(200)
+        res.render('pages/analytics/analytics', {
+            title: 'Аналитика',
+            pageTitle: 'Аналитическая статистика',
+        })
+    } catch (e) {
+        console.log(e)
+        await res.status(500).json(e)
+    }
+})
 module.exports = publicRouter

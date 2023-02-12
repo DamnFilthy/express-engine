@@ -76,7 +76,7 @@ gulp.task('styles-components', function () {
 });
 
 gulp.task('js-vendor', function () {
-    gulp.src("src/global/js-vendor/**/*.+(js)")
+    return gulp.src("src/global/js-vendor/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(concat('vendor.js'))
         .pipe(minify({noSource: true}))
@@ -86,7 +86,7 @@ gulp.task('js-vendor', function () {
 });
 
 gulp.task('js-main', function () {
-    gulp.src("src/global/js-main/**/*.+(js)")
+    return gulp.src("src/global/js-main/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(concat('main.js'))
         .pipe(minify({noSource: true}))
@@ -96,7 +96,7 @@ gulp.task('js-main', function () {
 });
 
 gulp.task('js-pages', function () {
-    gulp.src("src/pages/**/*.+(js)")
+    return gulp.src("src/pages/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -105,7 +105,7 @@ gulp.task('js-pages', function () {
 });
 
 gulp.task('js-components', function () {
-    gulp.src("src/components/**/*.+(js)")
+    return gulp.src("src/components/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -114,15 +114,15 @@ gulp.task('js-components', function () {
 });
 
 gulp.task('ejs-pages', function () {
-    gulp.src("src/pages/**/*.+(ejs)")
+    return gulp.src("src/pages/**/*.+(ejs)")
         .pipe(minify({noSource: true}))
-        .pipe(gulp.dest("public/views/pages"))
+        .pipe(gulp.dest("./public/views/pages"))
 });
 
 gulp.task('ejs-components', function () {
-    gulp.src("src/components/**/*.+(ejs)")
+    return gulp.src("src/components/**/*.+(ejs)")
         .pipe(minify({noSource: true}))
-        .pipe(gulp.dest("public/views/components"))
+        .pipe(gulp.dest("./public/views/components"))
 });
 
 gulp.task('watch', function () {
@@ -136,8 +136,8 @@ gulp.task('watch', function () {
     gulp.watch("src/pages/**/*.+(js)", gulp.parallel('js-pages'));
     gulp.watch("src/components/**/*.+(js)", gulp.parallel('js-components'));
 
-    gulp.watch("src/pages/**/*.+(js)", gulp.parallel('ejs-pages'));
-    gulp.watch("src/components/**/*.+(js)", gulp.parallel('ejs-components'));
+    gulp.watch("src/pages/**/*.+(ejs)", gulp.parallel('ejs-pages'));
+    gulp.watch("src/components/**/*.+(ejs)", gulp.parallel('ejs-components'));
 });
 
 gulp.task('default',
