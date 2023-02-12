@@ -64,37 +64,63 @@
 ```
 
 #### Как передавать стили и js в шаблоны:
-- Использовать функцию getScriptLocation `const getScriptLocation = require("../utils/getScript");` 
+- Для получения конкретной ссылки - функция getScriptLocation `const getScriptLocation = require("../utils/getScript");` 
 - Передать на вход тип файла и название страницы `const jsName = getScriptLocation('jsType', 'home');`
-- Для глобальных стилей и скриптов передаем без имени страницы 
 - Передать в шаблон:
 ``` 
-const pageScriptVendor = getScriptLocation('jsTypeVendor'),
-            pageScriptMain = getScriptLocation('jsTypeMain'),
-            pageScript = getScriptLocation('jsType', 'home'),
-            pageCssVendor = getScriptLocation('cssTypeVendor'),
-            pageCssMain = getScriptLocation('cssTypeMain'),
-            pageCss = getScriptLocation('cssType', 'home');
+publicRouter.js 
 
-        res.render('pages/home/home', {
-            title: 'Main Page',
-            pageTitle: 'Главная страница',
-            pageScriptVendor,
-            pageScriptMain,
-            pageScript,
-            pageCssVendor,
-            pageCssMain,
-            pageCss
-        })
+const pageScriptVendor = getScriptLocation('jsTypeVendor');
+res.render('pages/home/home', {
+    pageScriptVendor,
+})
 ```
-- При использовании кастомных компонентов стили и скрипты для них подключаются вручную:
+------------------------------------------------------------------------------------------------------------
+- Для получения всех данных - `const { getAllScripts} = require("../utils/getScript");`
+- Передать имя страницы и массив компонентов которые есть на странице:
+- Передать в шаблон: 
 ```
-<link rel="stylesheet" href="/public/css/components/sidebar/sidebar.min.css">
-<script src="/public/js/components/sidebar/sidebar-min.min.js"></script>
-```
-- Пути в public идентичны по структуре в src
+publicRouter.js 
 
-###### Суть: подключить данный шаблон и начать сразу делать сайт не думая про оптимизацию (при масштабировании) 
+const allScripts = getAllScripts('home', ['header', 'footer', 'sidebar'])
+res.render('pages/home/home', {
+    allScripts
+})
+```
+- Для глобальных стилей и скриптов передаем без имени страницы 
+------------------------------------------------------------------------------------------------------------
+- При использовании кастомных компонентов стили и скрипты передаем со страницы в сам компонент:
+```
+/pages/about.ejs
+
+<%- include('../../components/header/header', {scripts: allScripts.components}); %>
+<%- include('../../components/sidebar/sidebar', {scripts: allScripts.components}); %>
+<%- include('../../components/footer/footer', {scripts: allScripts.components}); %>
+```
+- И в файле компонента так же используем как и на странице:
+```
+/components/header.ejs
+
+<link rel="stylesheet" href="<%= scripts.header.cssScript %>">
+<script src="<%= scripts.header.jsScript %>"></script>
+```
+
+#### Список ключей для испорта стилей и скриптов
+| Type | Путь    | Описание   |
+| :---:   | :---: | :---: |
+| cssType | 'public/css/pages/'   | Стили страницы   |
+| cssTypeMain | 'public/css/styles/main'   | Общие стили проекта   |
+| cssTypeVendor | 'public/css/styles/vendor' | Внешние стили | 
+| cssTypeComponent | 'public/css/components/',| Стили компонента |
+| jsType | 'public/js/pages/'   | Скрипт страницы |
+| jsTypeMain | 'public/js/js-main/'   | Общие скрипты проекта |
+| jsTypeVendor | 'public/js/js-vendor/'  | Внешние скрипты   |
+| jsTypeComponent | 'public/js/components/'  | Скрипты компонента   |
+
+`По этим ключам можно получать отдельно каждый файл из функции getScriptLocation(type, page)`
+`Или через получить все getAllScripts(page, ['header', 'footer', 'sidebar'])`
+
+###### Все страницы и компоненты кэшируются
 
 В планах:
 - sequelize / быстрое подключение базы

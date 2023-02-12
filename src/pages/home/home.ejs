@@ -5,15 +5,15 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="<%= pageCssVendor %>">
-    <link rel="stylesheet" href="<%= pageCssMain %>">
-    <link rel="stylesheet" href="<%= pageCss %>">
-    <script src="<%= pageScriptVendor %>"></script>
-    <script src="<%= pageScriptMain %>"></script>
+    <link rel="stylesheet" href="<%= allScripts.pageCssVendor %>">
+    <link rel="stylesheet" href="<%= allScripts.pageCssMain %>">
+    <link rel="stylesheet" href="<%= allScripts.pageCss %>">
+    <script src="<%= allScripts.pageScriptVendor %>"></script>
+    <script src="<%= allScripts.pageScriptMain %>"></script>
     <title> <%= title %> </title>
 </head>
 <body>
-<%- include('../../components/header/header'); %>
+<%- include('../../components/header/header', {scripts: allScripts.components}); %>
 <h1><%= pageTitle %></h1>
 <main>
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -145,8 +145,8 @@
         <p>© 2017–2022 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
     </footer>
 </main>
-<%- include('../../components/sidebar/sidebar'); %>
-<%- include('../../components/footer/footer'); %>
-<script src="<%= pageScript %>"></script>
+<%- include('../../components/sidebar/sidebar', {scripts: allScripts.components}); %>
+<%- include('../../components/footer/footer', {scripts: allScripts.components}); %>
+<script src="<%= allScripts.pageScript %>"></script>
 </body>
 </html>

@@ -76,6 +76,7 @@ gulp.task('styles-components', function () {
         .pipe(autoprefixer())
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/css/components/"))
 });
 
@@ -117,6 +118,7 @@ gulp.task('js-components', function () {
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/js/components/"))
 });
 
