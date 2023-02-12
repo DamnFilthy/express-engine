@@ -56,10 +56,17 @@ publicRouter.get('/about', async (req, res) => {
 
 publicRouter.get('/analytics', async (req, res) => {
     try {
+        const pageScriptVendor = getScriptLocation('jsTypeVendor'),
+            pageScript = getScriptLocation('jsType', 'analytics'),
+            pageCssVendor = getScriptLocation('cssTypeVendor');
+
         res.status(200)
         res.render('pages/analytics/analytics', {
             title: 'Аналитика',
             pageTitle: 'Аналитическая статистика',
+            pageScriptVendor,
+            pageScript,
+            pageCssVendor,
         })
     } catch (e) {
         console.log(e)

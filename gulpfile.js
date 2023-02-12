@@ -5,6 +5,7 @@ const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const minify = require('gulp-minify');
+const hash = require('gulp-hash-filename');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpif = require('gulp-if');
 const exec = require('child_process').exec;
@@ -38,6 +39,7 @@ gulp.task('styles-vendor', function () {
         .pipe(autoprefixer())
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/css/styles/vendor/"))
 });
 
@@ -50,6 +52,7 @@ gulp.task('styles-main', function () {
         .pipe(autoprefixer())
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/css/styles/main/"))
 });
 
@@ -61,6 +64,7 @@ gulp.task('styles-pages', function () {
         .pipe(autoprefixer())
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/css/pages/"))
 });
 
@@ -82,6 +86,7 @@ gulp.task('js-vendor', function () {
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/js/js-vendor/"))
 });
 
@@ -92,6 +97,7 @@ gulp.task('js-main', function () {
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/js/js-main/"))
 });
 
@@ -101,6 +107,7 @@ gulp.task('js-pages', function () {
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
         .pipe(sourcemaps.write())
+        .pipe(hash())
         .pipe(gulp.dest("./public/js/pages/"))
 });
 

@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="<%= pageCssVendor %>">
     <link rel="stylesheet" href="<%= pageCssMain %>">
     <link rel="stylesheet" href="<%= pageCss %>">
+    <script src="<%= pageScriptVendor %>"></script>
+    <script src="<%= pageScriptMain %>"></script>
     <title>
         <%= title %>
     </title>
@@ -19,8 +21,6 @@
 </div>
 <%- include('../../components/sidebar/sidebar'); %>
 <%- include('../../components/footer/footer'); %>
-<script src="<%= pageScriptVendor %>"></script>
-<script src="<%= pageScriptMain %>"></script>
 <script src="<%= pageScript %>"></script>
 </body>
 </html>
