@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const publicRouter = require('./routes/publicRouter')
+const path = require("path");
 const cors = require('cors');
 const clientUrl = 'http://localhost:8083';
 
 app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, '/public/views'));
 
 app.use('/public', express.static(__dirname + '/public'))
 app.use(cors({origin: '*'}));
