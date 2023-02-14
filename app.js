@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const publicRouter = require('./routes/publicRouter')
+const publicRouter = require('./server/routes/publicRouter')
 const path = require("path");
 const cors = require('cors');
 const clientUrl = 'http://localhost:8083';

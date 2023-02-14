@@ -31,7 +31,7 @@ gulp.task('prod-server', () => {
 });
 
 gulp.task('styles-vendor', function () {
-    return gulp.src("src/global/styles-vendor/*.+(scss|sass|css)")
+    return gulp.src("client/global/styles-vendor/*.+(scss|sass|css)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(concat('vendor.css'))
@@ -44,7 +44,7 @@ gulp.task('styles-vendor', function () {
 });
 
 gulp.task('styles-main', function () {
-    return gulp.src("src/global/styles-main/**/*.+(scss|sass|css)")
+    return gulp.src("client/global/styles-main/**/*.+(scss|sass|css)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(concat('main.css'))
@@ -57,7 +57,7 @@ gulp.task('styles-main', function () {
 });
 
 gulp.task('styles-pages', function () {
-    return gulp.src("src/pages/**/*.+(scss|sass|css)")
+    return gulp.src("client/pages/**/*.+(scss|sass|css)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -69,7 +69,7 @@ gulp.task('styles-pages', function () {
 });
 
 gulp.task('styles-components', function () {
-    return gulp.src("src/components/**/*.+(scss|sass|css)")
+    return gulp.src("client/components/**/*.+(scss|sass|css)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -81,7 +81,7 @@ gulp.task('styles-components', function () {
 });
 
 gulp.task('js-vendor', function () {
-    return gulp.src("src/global/js-vendor/**/*.+(js)")
+    return gulp.src("client/global/js-vendor/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(concat('vendor.js'))
         .pipe(minify({noSource: true}))
@@ -92,7 +92,7 @@ gulp.task('js-vendor', function () {
 });
 
 gulp.task('js-main', function () {
-    return gulp.src("src/global/js-main/**/*.+(js)")
+    return gulp.src("client/global/js-main/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(concat('main.js'))
         .pipe(minify({noSource: true}))
@@ -103,7 +103,7 @@ gulp.task('js-main', function () {
 });
 
 gulp.task('js-pages', function () {
-    return gulp.src("src/pages/**/*.+(js)")
+    return gulp.src("client/pages/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -113,7 +113,7 @@ gulp.task('js-pages', function () {
 });
 
 gulp.task('js-components', function () {
-    return gulp.src("src/components/**/*.+(js)")
+    return gulp.src("client/components/**/*.+(js)")
         .pipe(gulpif(!isProd, sourcemaps.init()))
         .pipe(minify({noSource: true}))
         .pipe(rename({suffix: '.min', prefix: ''}))
@@ -123,30 +123,30 @@ gulp.task('js-components', function () {
 });
 
 gulp.task('ejs-pages', function () {
-    return gulp.src("src/pages/**/*.+(ejs)")
+    return gulp.src("client/pages/**/*.+(ejs)")
         .pipe(minify({noSource: true}))
         .pipe(gulp.dest("./public/views/pages"))
 });
 
 gulp.task('ejs-components', function () {
-    return gulp.src("src/components/**/*.+(ejs)")
+    return gulp.src("client/components/**/*.+(ejs)")
         .pipe(minify({noSource: true}))
         .pipe(gulp.dest("./public/views/components"))
 });
 
 gulp.task('watch', function () {
-    gulp.watch("src/global/styles-vendor/*.+(scss|sass|css)", gulp.parallel('styles-vendor'));
-    gulp.watch("src/global/styles-main/**/*.+(scss|sass|css)", gulp.parallel('styles-main'));
-    gulp.watch("src/**/*.+(scss|sass|css)", gulp.parallel('styles-pages'));
-    gulp.watch("src/components/**/*.+(scss|sass|css)", gulp.parallel('styles-components'));
+    gulp.watch("client/global/styles-vendor/*.+(scss|sass|css)", gulp.parallel('styles-vendor'));
+    gulp.watch("client/global/styles-main/**/*.+(scss|sass|css)", gulp.parallel('styles-main'));
+    gulp.watch("client/**/*.+(scss|sass|css)", gulp.parallel('styles-pages'));
+    gulp.watch("client/components/**/*.+(scss|sass|css)", gulp.parallel('styles-components'));
 
-    gulp.watch("src/global/js-vendor/**/*.+(js)", gulp.parallel('js-vendor'));
-    gulp.watch("src/global/js-main/**/*.+(js)", gulp.parallel('js-main'));
-    gulp.watch("src/pages/**/*.+(js)", gulp.parallel('js-pages'));
-    gulp.watch("src/components/**/*.+(js)", gulp.parallel('js-components'));
+    gulp.watch("client/global/js-vendor/**/*.+(js)", gulp.parallel('js-vendor'));
+    gulp.watch("client/global/js-main/**/*.+(js)", gulp.parallel('js-main'));
+    gulp.watch("client/pages/**/*.+(js)", gulp.parallel('js-pages'));
+    gulp.watch("client/components/**/*.+(js)", gulp.parallel('js-components'));
 
-    gulp.watch("src/pages/**/*.+(ejs)", gulp.parallel('ejs-pages'));
-    gulp.watch("src/components/**/*.+(ejs)", gulp.parallel('ejs-components'));
+    gulp.watch("client/pages/**/*.+(ejs)", gulp.parallel('ejs-pages'));
+    gulp.watch("client/components/**/*.+(ejs)", gulp.parallel('ejs-components'));
 });
 
 gulp.task('default',
