@@ -6,7 +6,7 @@
 многие списывают это на то что, такого рода сайты и cms системы прерогатива исключительно php, я считаю это связано с тем что node.js появилась относительно недавно,
 не успела обрасти похожими решениями и теперь используется для других целей, ведь зачем делать сайт на голом express если есть wordpress (как пример)*
 
-![This is an image]([https://github.com/DamnFilthy/express-engine/blob/master/github/logo/Group%2044.png](https://github.com/DamnFilthy/express-engine/blob/master/client/media/images/site-logo.png?raw=true))
+![This is an image](https://raw.githubusercontent.com/DamnFilthy/express-engine/master/client/media/images/site-logo.png)
 
 ###### Этот проект не является фреймворком или даже оберткой над express, скорее неким шаблоном для разработки многострачных сайтов (или чего угодно)
 
