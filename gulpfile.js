@@ -9,10 +9,17 @@ const cssnano = require('gulp-cssnano');
 const hash = require('gulp-hash-filename');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpif = require('gulp-if');
+const clean = require('gulp-clean');
 const exec = require('child_process').exec;
 const nodemon = require('gulp-nodemon');
+const isProd = process.env.NODE_ENV === 'production';
 
-const isProd = process.env.NODE_ENV === 'production'
+gulp.task('clean', function (done) {
+    console.log("Clean all files in build folder");
+    return gulp.src("./public", {read: false, allowEmpty: true})
+        .pipe(clean());
+});
+
 
 gulp.task('dev-server', function () {
     const stream = nodemon({script: 'app.js'})
@@ -25,7 +32,7 @@ gulp.task('dev-server', function () {
             console.error('Server has crashed\n')
             stream.emit('restart', 10)
         })
-})
+});
 
 gulp.task('prod-server', () => {
     exec('node app.js', err => err);
@@ -213,7 +220,7 @@ gulp.task('watch', function () {
     gulp.watch("client/components/**/*.+(ejs)", gulp.parallel('ejs-components'));
 });
 
-gulp.task('default',
+gulp.task('serve',
     isProd ? gulp.parallel(
         'prod-server',
 
@@ -247,3 +254,5 @@ gulp.task('default',
         'ejs-components',
     ),
 );
+
+gulp.task('default', gulp.series('clean', 'serve'));
