@@ -5,6 +5,7 @@ const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const minify = require('gulp-minify');
+const cssnano = require('gulp-cssnano');
 const hash = require('gulp-hash-filename');
 const sourcemaps = require('gulp-sourcemaps');
 const gulpif = require('gulp-if');
@@ -40,6 +41,21 @@ gulp.task('styles-vendor', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
         .pipe(hash())
+        .pipe(
+            gulpif(
+                isProd, cssnano(
+                    [
+                        'default',
+                        {
+                            cssDeclarationSorter: false,
+                            discardOverridden: false,
+                            discardComments: false,
+                            mergeIdents: true
+                        }
+                    ]
+                )
+            )
+        )
         .pipe(gulp.dest("./public/css/styles/vendor/"))
 });
 
@@ -53,6 +69,22 @@ gulp.task('styles-main', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
         .pipe(hash())
+        .pipe(
+            gulpif(
+                isProd, cssnano(
+                    [
+                        'default',
+                        {
+                            autoprefixer: {browsers: 'ie8', add: true, cascade: false, grid: true},
+                            cssDeclarationSorter: false,
+                            discardOverridden: false,
+                            discardComments: false,
+                            mergeIdents: true
+                        }
+                    ]
+                )
+            )
+        )
         .pipe(gulp.dest("./public/css/styles/main/"))
 });
 
@@ -65,6 +97,22 @@ gulp.task('styles-pages', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
         .pipe(hash())
+        .pipe(
+            gulpif(
+                isProd, cssnano(
+                    [
+                        'default',
+                        {
+                            autoprefixer: {browsers: 'ie8', add: true, cascade: false, grid: true},
+                            cssDeclarationSorter: false,
+                            discardOverridden: false,
+                            discardComments: false,
+                            mergeIdents: true
+                        }
+                    ]
+                )
+            )
+        )
         .pipe(gulp.dest("./public/css/pages/"))
 });
 
@@ -77,6 +125,22 @@ gulp.task('styles-components', function () {
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(sourcemaps.write())
         .pipe(hash())
+        .pipe(
+            gulpif(
+                isProd, cssnano(
+                    [
+                        'default',
+                        {
+                            autoprefixer: {browsers: 'ie8', add: true, cascade: false, grid: true},
+                            cssDeclarationSorter: false,
+                            discardOverridden: false,
+                            discardComments: false,
+                            mergeIdents: true
+                        }
+                    ]
+                )
+            )
+        )
         .pipe(gulp.dest("./public/css/components/"))
 });
 
