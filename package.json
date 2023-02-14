@@ -17,7 +17,8 @@
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-hash-filename": "^4.0.0",
-    "gulp-if": "^3.0.0"
+    "gulp-if": "^3.0.0",
+    "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^8.0.0",
