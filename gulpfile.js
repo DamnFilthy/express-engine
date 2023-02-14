@@ -5,6 +5,7 @@ const cleanCSS = require('gulp-clean-css');
 const autoprefixer = require('gulp-autoprefixer');
 const concat = require('gulp-concat');
 const minify = require('gulp-minify');
+const imagemin = require('gulp-imagemin');
 const cssnano = require('gulp-cssnano');
 const hash = require('gulp-hash-filename');
 const sourcemaps = require('gulp-sourcemaps');
@@ -14,12 +15,11 @@ const exec = require('child_process').exec;
 const nodemon = require('gulp-nodemon');
 const isProd = process.env.NODE_ENV === 'production';
 
-gulp.task('clean', function (done) {
-    console.log("Clean all files in build folder");
-    return gulp.src("./public", {read: false, allowEmpty: true})
+gulp.task('clean', function () {
+    console.log("public folder deleted");
+    return gulp.src('./public', {read: false, allowEmpty: true})
         .pipe(clean());
 });
-
 
 gulp.task('dev-server', function () {
     const stream = nodemon({script: 'app.js'})
@@ -205,6 +205,22 @@ gulp.task('ejs-components', function () {
         .pipe(gulp.dest("./public/views/components"))
 });
 
+gulp.task('media-files', function () {
+    return gulp.src('client/media/**/*')
+        .pipe(imagemin([
+            imagemin.gifsicle({interlaced: true}),
+            imagemin.mozjpeg({quality: 75, progressive: true}),
+            imagemin.optipng({optimizationLevel: 5}),
+            imagemin.svgo({
+                plugins: [
+                    {removeViewBox: true},
+                    {cleanupIDs: false}
+                ]
+            })
+        ]))
+        .pipe(gulp.dest('./public/media'))
+});
+
 gulp.task('watch', function () {
     gulp.watch("client/global/styles-vendor/*.+(scss|sass|css)", gulp.parallel('styles-vendor'));
     gulp.watch("client/global/styles-main/**/*.+(scss|sass|css)", gulp.parallel('styles-main'));
@@ -218,6 +234,8 @@ gulp.task('watch', function () {
 
     gulp.watch("client/pages/**/*.+(ejs)", gulp.parallel('ejs-pages'));
     gulp.watch("client/components/**/*.+(ejs)", gulp.parallel('ejs-components'));
+
+    gulp.watch("client/media/**/*", gulp.parallel('media-files'));
 });
 
 gulp.task('serve',
@@ -236,6 +254,8 @@ gulp.task('serve',
 
         'ejs-pages',
         'ejs-components',
+
+        'media-files'
     ) : gulp.parallel(
         'dev-server',
         'watch',
@@ -252,6 +272,8 @@ gulp.task('serve',
 
         'ejs-pages',
         'ejs-components',
+
+        'media-files'
     ),
 );
 
