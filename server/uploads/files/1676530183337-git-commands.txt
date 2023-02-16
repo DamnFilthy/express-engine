@@ -1,0 +1,45 @@
+# Получает изменения с сервера, сохраняет но не применяет.
+git fetch --all
+
+# Сбрасывает раздел проиндексированных файлов и рабочий каталог до состояния последнего коммита.
+# --hard - отменить изменения в разделе проиндексированных файлов и перезаписать все изменения в рабочем каталоге.
+git reset --hard origin/master
+
+# Удалить ветку локально 
+git branch -d  local_branch_name
+
+# Удалить все ветки локально кроме дев и мастер
+git branch | grep -v "dev" | grep -v "master" | xargs git branch -D
+
+# Удалить добавленные файлы в индекс (после git add)
+git restore --staged <file>.
+
+# Выведет список файлов и папок которые будут удаленые
+git clean -n -d
+
+# Удалить файлы 
+git clean -f
+
+# Отменить изменения в файле после команды git add
+git reset HEAD <name-file>
+
+# 
+git rebase dev
+
+#
+git push --force
+
+wsl --shutdown (выкл)
+
+wsl -l -v (проверка вирт.машин)
+
+# Проверка занятых портов
+netstat -aon|findstr "8081"
+
+# kill
+taskkill /T /F /PID 9088 
+
+wsl --unregister docker-desktop
+wsl --unregister docker-desktop-data
+
+chrome://inspect/#devices
